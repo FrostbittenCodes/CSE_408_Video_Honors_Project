@@ -1,25 +1,18 @@
 # use pkg-config for getting CFLAGS and LDLIBS
-FFMPEG_LIBS=    libavdevice                        \
-                libavformat                        \
-                libavfilter                        \
-                libavcodec                         \
-                libswresample                      \
-                libswscale                         \
-                libavutil                          \
-                fftw3                              \
+FFMPEG_LIBS=    libavdevice
 
 CFLAGS += -Wall -g
 CFLAGS := $(shell pkg-config --cflags $(FFMPEG_LIBS)) $(CFLAGS)
 LDLIBS := $(shell pkg-config --libs $(FFMPEG_LIBS)) $(LDLIBS)
 
-EXAMPLES=       main
+EXECUTABLE=       main
 
-OBJS=$(addsuffix .o,$(EXAMPLES))
+OBJS=$(addsuffix .o,$(EXECUTABLE))
 
 .phony: all clean
 
-all: $(OBJS) $(EXAMPLES)
+all: $(OBJS) $(EXECUTABLE)
 
 clean:
-	$(RM) $(EXAMPLES) $(OBJS)
+	$(RM) $(EXECUTABLE) $(OBJS)
 	$(RM) output/*
